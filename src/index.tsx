@@ -3,7 +3,6 @@ import {useLoadImages} from './hooks/index';
 import {IRotationGalleryProps} from './interfaces';
 import { loop, initialConfig, clamp } from './tools';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-// import './index.css';
 
 export const RotationGalleryPure:React.FC<IRotationGalleryProps> = ({name, title, source, className, zoomPanPinch, allowZoom = true, options}) => 
 {
@@ -69,7 +68,7 @@ export const RotationGalleryPure:React.FC<IRotationGalleryProps> = ({name, title
            {...zoomPanPinch}
         >
             <TransformComponent >
-                <img src={`http://rotationgallery.com/assets/${name}/${imageXY.y}_${imageXY.x}.jpg`} ref={imageRef} alt='Rotation gallery'/>
+                <img src={`${source + name}/${imageXY.y}_${imageXY.x}.jpg`} ref={imageRef} alt='Rotation gallery'/>
             </TransformComponent>
         </TransformWrapper>
     )
@@ -89,7 +88,7 @@ export const RotationGalleryPure:React.FC<IRotationGalleryProps> = ({name, title
                     onMouseUp={handleMouseUp}
                     onMouseOut={handleMouseOut}
                 >
-                    {allowZoom ? (EnabledZoom) : (<img src={`http://rotationgallery.com/assets/${name}/${imageXY.y}_${imageXY.x}.jpg`} ref={imageRef} alt='Rotation gallery'/>)}
+                    {allowZoom ? (EnabledZoom) : (<img src={`${source + name}/${imageXY.y}_${imageXY.x}.jpg`} ref={imageRef} alt='Rotation gallery'/>)}
                 </div>
             )}
             {title && 
@@ -99,8 +98,8 @@ export const RotationGalleryPure:React.FC<IRotationGalleryProps> = ({name, title
         </div>
     )
 }
-//
-export const RotationGallery = React.memo(RotationGalleryPure, areEqual);
+const RotationGallery = React.memo(RotationGalleryPure, areEqual);
+export default RotationGallery;
 
 function areEqual(prevProps: any, nextProps: any)
 {
