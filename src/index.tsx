@@ -3,6 +3,7 @@ import {useLoadImages} from './hooks/index';
 import {IRotationGalleryProps} from './interfaces';
 import { loop, initialConfig, clamp } from './tools';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+// import './index.css';
 
 export const RotationGalleryPure:React.FC<IRotationGalleryProps> = ({name, title, source, className, zoomPanPinch, allowZoom = true, options}) => 
 {

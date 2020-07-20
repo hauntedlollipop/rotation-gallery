@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { RotationGallery } from '../src/RotationGallery';
+import RotationGallery from '../src/index';
 
 
 function App() {
