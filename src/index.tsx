@@ -106,3 +106,5 @@ const RotationGallery = React.memo(RotationGalleryPure, (prevProps: any, nextPro
     }
     return true;
 });
+
+export default RotationGallery;
