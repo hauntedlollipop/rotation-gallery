@@ -98,14 +98,11 @@ export const RotationGalleryPure:React.FC<IRotationGalleryProps> = ({name, title
         </div>
     )
 }
-const RotationGallery = React.memo(RotationGalleryPure, areEqual);
-export default RotationGallery;
-
-function areEqual(prevProps: any, nextProps: any)
+const RotationGallery = React.memo(RotationGalleryPure, (prevProps: any, nextProps: any) =>
 {
     if (prevProps.name !== nextProps.name)
     {
         return false;
     }
     return true;
-}
+});
