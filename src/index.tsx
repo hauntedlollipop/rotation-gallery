@@ -4,7 +4,7 @@ import {IRotationGalleryProps} from './interfaces';
 import { loop, initialConfig, clamp } from './tools';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import {RTContext} from './provider'
-import './index.css';
+require('./index.css');
 
 export const RotationGalleryPure:React.FC<IRotationGalleryProps> = ({name, title, className, zoomPanPinch, allowZoom = true, options}) => 
 {
