@@ -17,14 +17,34 @@ export const useLoadImages = (name: string, source: string, config: IConfig) =>
         }
         function loadImages()
         {
+            // @ts-ignore
+            const cache: {[key: string]: any} = JSON.parse(localStorage.getItem('images')) || {};
             return Promise.all(imgs.map(i =>
             {
                 return new Promise((resolve, reject) =>
                 {
+                    const arr = i.src.split('/');
+                    const name: string = arr[arr.length - 1].split('.')[0];
                     try {
                         const img = new Image();
-                        img.onload = () => resolve(img);
-                        img.src = i.src;
+                        let data = null;
+                        img.onload = () =>
+                        {
+                            data = getBase64Image(img);
+                            if (!cache[name])
+                            {
+                                cache[name] = data;
+                                localStorage.setItem('images', JSON.stringify(cache));
+                            }
+                            resolve(img);
+                        }
+                        img.src = !!cache[name] ? "data:image/jpeg;base64," + cache[name] : i.src;
+                        img.setAttribute('crossorigin', '*');
+                        // @ts-ignore
+                        console.log()
+
+                        // const obj = localStorage.getItem('images')
+                        // console.log(JSON.stringify(obj))
                     }
                     catch(err) {
                         reject(err);
@@ -39,5 +59,20 @@ export const useLoadImages = (name: string, source: string, config: IConfig) =>
         })
     }, [name])
 
+
     return [loading, images];
+}
+
+function getBase64Image(img: HTMLImageElement) {
+
+    let canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    var ctx = canvas.getContext("2d");
+    ctx!.drawImage(img, 0, 0);
+
+    var dataURL = canvas.toDataURL("image/jpeg");
+
+    return dataURL.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
 }
