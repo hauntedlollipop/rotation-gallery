@@ -4,7 +4,6 @@ export interface IRotationGalleryProps
 {
     name: string
     title?: string
-    source: string
     allowZoom?: boolean
     className?: string
     zoomPanPinch?: PropsList

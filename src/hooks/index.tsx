@@ -23,10 +23,7 @@ export const useLoadImages = (name: string, source: string, config: IConfig) =>
                 {
                     try {
                         const img = new Image();
-                        img.onload = () =>
-                        {
-                            resolve(img);
-                        }
+                        img.onload = () => resolve(img);
                         img.src = i.src;
                     }
                     catch(err) {
@@ -41,7 +38,6 @@ export const useLoadImages = (name: string, source: string, config: IConfig) =>
             setImages(res);
         })
     }, [name])
-
 
     return [loading, images];
 }

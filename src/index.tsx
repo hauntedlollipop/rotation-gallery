@@ -3,12 +3,13 @@ import {useLoadImages} from './hooks/index';
 import {IRotationGalleryProps} from './interfaces';
 import { loop, initialConfig, clamp } from './tools';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-// import './index.css';
+import {RTContext} from './provider'
+import './index.css';
 
-export const RotationGalleryPure:React.FC<IRotationGalleryProps> = ({name, title, source, className, zoomPanPinch, allowZoom = true, options}) => 
+export const RotationGalleryPure:React.FC<IRotationGalleryProps> = ({name, title, className, zoomPanPinch, allowZoom = true, options}) => 
 {
     const conf = {...initialConfig, ...options};
-
+    const {source} = React.useContext(RTContext);
     const [loading, images] = useLoadImages(name, source, conf);
     const [mouseDown, setMouseDown] = React.useState<boolean>(false);
     const [mouseDownXY, setMouseDownXY] = React.useState<{x: number, y: number}>({x: 0, y: 0});
@@ -78,7 +79,7 @@ export const RotationGalleryPure:React.FC<IRotationGalleryProps> = ({name, title
         <div className={'rotation-gallery ' + (className ? className : '')}>
             {loading ? (
                 <div className='rotation-loader'>
-                    <span>{conf.loadingText || 'Loading...'}</span>
+                    <img src='http://rotationgallery.com/assets/rotation_gallery_wheel.svg' alt='Rotation wheel'/>
                 </div>) 
                 : (
                 <div 
